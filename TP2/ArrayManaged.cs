@@ -1,41 +1,75 @@
 using System;
 using System.Linq;
+
 namespace TP2
 {
     public class ArrayManaged
     {
-        private int[] items;
+        private long[] items;
 
-        public int Count{
+        public long Count{
             get;
             private set;
         }
 
-        public int ResizeCount {
+        public long ResizeCount {
             get;
             private set;
         }
 
-        public int Capacity { 
+        public long Capacity { 
             get{
             return items.Length;
             }
         }
 
+        public long Max{
+            get {
+                return items.Max();
+            }
+        }
+
+        public long Min{
+            get{
+                return items.Min();
+            }
+        }
+
+        public long Average{
+            get{
+                long average = 0;
+                long count = 0;
+                foreach(long item in items)
+                {
+                    average += item;
+                    count ++;
+                }
+                return average/count;
+            }
+        }
+        public static void PrintArray(ArrayManaged array)
+        {
+            foreach(var item in array.items)
+            {
+                Console.Write($"{item} - ");
+            }
+        }
+       
+
         public ArrayManaged(){
-            items = new int [1];
+            items = new long [1];
             Count = 0;
             ResizeCount = 0;
         }    
 
-        public ArrayManaged(int quantity)
+        public ArrayManaged(long quantity)
         {
-            items = new int[quantity];
+            items = new long[quantity];
             Count = 0;
             ResizeCount = 0;
         }  
 
-        public int Get(int position)
+        public long Get(long position)
         {
             if (position >= Count)
             {
@@ -44,9 +78,9 @@ namespace TP2
             return items [position];
         }
 
-        public int Search(int item)
+        public long Search(long item)
         {
-            for(int index = 0; index<Count; index++)
+            for(long index = 0; index<Count; index++)
             {
                 if(items[index] == item)
                 {
@@ -57,7 +91,7 @@ namespace TP2
             return -1;
         }
 
-        public void Add(int item)
+        public void Add(long item)
         {
             if (Count >=  Capacity)
             {
@@ -67,10 +101,10 @@ namespace TP2
             Count ++;
         }
 
-        public void RemoveItem(int _item)
+        public void RemoveItem(long _item)
         {
-            int position = -1;
-            for (int i = 0; i< Count; i++)
+            long position = -1;
+            for (long i = 0; i< Count; i++)
             {
                 if(items[i] == _item)
                 {
@@ -84,15 +118,13 @@ namespace TP2
 
         private void Resize()
         {
-            int [] _temp = new int[Capacity * 2];
-            for(int i = 0; i < Capacity; i++)
+            long [] _temp = new long[Capacity * 2];
+            for(long i = 0; i < Capacity; i++)
             {
                 _temp[i] = items[i];
             }
             items = _temp;
             ResizeCount++;
         }
-
-
     }
 }
